@@ -24,25 +24,13 @@ gallery.style.listStyle = "none";
 gallery.style.padding = "100px 156px";
 gallery.style.margin = "0";
 
-images.forEach((imageData) => {
-  // yeni <li> olustur ve css sınıfını ekle
-  const imageItem = document.createElement("li");
-  imageItem.classList.add("gallery-item");
+const galleryMarkup = images
+  .map(
+    ({ url, alt }) =>
+      `<li class="gallery-item">
+        <img src="${url}" alt="${alt}" width="360" height="300" style="border-radius: 8px; object-fit: cover;">
+      </li>`
+  )
+  .join(""); // 🔹 Dizi elemanlarını string olarak birleştir
 
-  // yeni  <img> olustur ve src ile alt değerlerini ayarla
-  const image = document.createElement("img");
-  image.src = imageData.url;
-  image.alt = imageData.alt;
-
-  image.style.width = "360px";
-  image.style.height = "300px";
-  image.style.left = "156px";
-  image.style.top = "100px";
-  image.style.objectFit = "cover";
-
-  // <img> yi <li> ye ekle, ardından <li> yi galerinin içine  ekle
-  imageItem.appendChild(image);
-  gallery.appendChild(imageItem);
-});
-gallery.style.width = "100%"; // Galeri genişliği tüm ekranı kapsar
-gallery.style.height = "auto"; // Galerinin yüksekliği otomatik olur, içerik arttıkça boyu değişir
+gallery.innerHTML = galleryMarkup; // 🔹 Tek seferde DOM'a ekle
