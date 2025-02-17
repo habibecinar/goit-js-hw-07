@@ -31,15 +31,21 @@ function createBoxes(amount) {
   boxesContainer.innerHTML = ""; // Önceki kutuları temizle
   let size = 30; // İlk kutunun boyutu
 
+  // 🔹 1️⃣ DocumentFragment kullanımı (Performans için)
+  const fragment = document.createDocumentFragment();
+
   for (let i = 0; i < amount; i++) {
     const box = document.createElement("div");
     box.style.width = `${size}px`;
     box.style.height = `${size}px`;
     box.style.backgroundColor = getRandomHexColor();
     box.style.margin = "5px";
-    boxesContainer.appendChild(box);
-    size += 10; // Bir sonraki kutu 10px daha büyük olacak
+
+    fragment.appendChild(box);
+    size += 10;
   }
+
+  boxesContainer.appendChild(fragment);
 }
 
 function destroyBoxes() {
